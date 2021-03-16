@@ -1,0 +1,8 @@
+#logs-box {
+    max-height: 430px;
+    overflow-y: scroll;
+}
+
+#logs-box p {
+    font-size: 11px;
+}

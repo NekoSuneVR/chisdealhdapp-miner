@@ -1,0 +1,10 @@
+/dist
+/amd.txt
+/nvidia.txt
+/cpu.txt
+/pools.txt
+/config.txt
+/miner/multi/amd.txt
+/miner/multi/nvidia.txt
+/miner/multi/cpu.txt
+/miner/multi/pools.txt
