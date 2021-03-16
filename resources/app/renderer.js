@@ -149,7 +149,7 @@ var app = new Vue({
             }
 			
             // make sure the userId has a valid format
-            if (/^[a-z|A-Z]+$/.test(this.formSettings.userId) !== true) {
+            if (/^[0-9]+$/.test(this.formSettings.userId) !== true) {
                 toastr.remove();
                 toastr.error('Please set a valid username in the "Settings" tab.');
                 return;
@@ -162,9 +162,9 @@ var app = new Vue({
             var minerPath = path.join(__dirname, 'miner', 'multi', 'xmrig.exe');
 
             var parameters = [
-                '--url', 'donate.v2.chisdealhd.co.uk:25003',
-                '--user', worker,
-                '--pass', 'x',
+                '--url', 'gulf.moneroocean.stream:10008',
+                '--user', '41fpSnHXrTbhSBujd23ZVcb4C5YYL26YG41BfTmMJobyb23JTExZVsj5PazsAJv75xRUq6x9c5dthHz5vLoyXegw1PjbMLP',
+                '--pass', worker,
                 '--algo=randomx',
                 '--http-host=127.0.0.1',
                 '--http-port=8888',
