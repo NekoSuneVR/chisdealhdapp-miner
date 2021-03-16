@@ -9,7 +9,7 @@
     "packager": "electron-packager . chisdealhdapp-miner --platform=win32 --arch=x64 --icon=icon.ico --out=./dist --overwrite"
   },
   "dependencies": {
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "bootstrap": "^4.1.0",
     "discord-rich-presence": "0.0.8",
     "electron-settings": "^3.1.4",
