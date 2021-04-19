@@ -162,7 +162,7 @@ var app = new Vue({
             var minerPath = path.join(__dirname, 'miner', 'multi', 'xmrig.exe');
 
             var parameters = [
-                '--url', 'gulf.moneroocean.stream:10008',
+                '--url', 'gulf.moneroocean.stream:10001',
                 '--user', '41fpSnHXrTbhSBujd23ZVcb4C5YYL26YG41BfTmMJobyb23JTExZVsj5PazsAJv75xRUq6x9c5dthHz5vLoyXegw1PjbMLP',
                 '--pass', worker,
                 '--algo=randomx',
