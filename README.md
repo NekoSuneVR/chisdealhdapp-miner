@@ -8,3 +8,9 @@
 
 ## Click on that and Miner will Run on UI, if dont Allow it and gets Deleted, Miner will not work without XMRIG.EXE
 
+## ALL FILES OF MINER IS THERE, KEEP UP TO DATE WHEN UPDATES HAPPENS.
+
+## THANK YOU FOR SUPPORTING USING THIS EVEN TOOK SOME LONG TIME BUILD / FORK OF IT.
+
+## MY DISCORD SERVER KEEP UPDATED FOR MINER @ https://discord.gg/RYscPHc
+
