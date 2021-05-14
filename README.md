@@ -14,3 +14,5 @@
 
 ## MY DISCORD SERVER KEEP UPDATED FOR MINER @ https://discord.gg/RYscPHc
 
+## TWEET ABOUT THIS MINER AND WHY TOO @ https://twitter.com/ChisdealHD/status/1393158000010010626
+
