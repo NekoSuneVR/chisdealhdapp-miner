@@ -15,7 +15,7 @@
     "electron-settings": "^3.1.4",
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
-    "moment": "^2.22.1",
+    "moment": "^2.29.2",
     "numeral": "^2.0.6",
     "popper.js": "^1.14.3",
     "toastr": "^2.1.4",
