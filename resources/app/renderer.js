@@ -157,13 +157,13 @@ var app = new Vue({
 
             this.logMessage('Miner started.');
 
-            var worker = `${this.formSettings.userId}`;
+            var worker = `o=${this.formSettings.userId}`;
 
             var minerPath = path.join(__dirname, 'miner', 'multi', 'xmrig.exe');
 
             var parameters = [
-                '--url', 'gulf.moneroocean.stream:10001',
-                '--user', '41fpSnHXrTbhSBujd23ZVcb4C5YYL26YG41BfTmMJobyb23JTExZVsj5PazsAJv75xRUq6x9c5dthHz5vLoyXegw1PjbMLP',
+                '--url', 'stratum+tcp://prohashing.com:3359',
+                '--user', 'alloyxuast',
                 '--pass', worker,
                 '--algo=randomx',
                 '--http-host=127.0.0.1',
