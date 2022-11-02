@@ -81,7 +81,7 @@ var app = new Vue({
             level: 0,
             points: 0,
             totalpoints: 0,
-			isbanned: null,
+	    isbanned: null,
             userrole: null,
         },
         formSettings: {
@@ -336,6 +336,28 @@ var app = new Vue({
                 });
 
         },
+	    
+	profileStats: function() {
+
+            var self = this;
+
+            axios({
+                    method: 'GET',
+                    url: this.urls.api.GetUserChecker+this.formSettings.userId,
+                })
+                .then(function(res) {
+                    var response = res.data;
+		    
+                    self.stats.xp = res.data.xp;
+                    self.stats.level = res.data.level;
+                    self.stats.points = res.data.minerPoints;
+
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+
+        },
 
         resetStats: function() {
             this.stats.hashrate = 0;
@@ -344,7 +366,7 @@ var app = new Vue({
             this.stats.threads = 0;
             this.stats.timer = 0;
             this.stats.pending = 0;
-			this.stats.totalpoints = 0;
+	    this.stats.totalpoints = 0;
         },
 
         estimateEarnings: function() {
@@ -415,7 +437,7 @@ var app = new Vue({
                     console.log(error);
                 });
         },
-
+	    
         checkForUpdates: function() {
             var self = this;
             axios({
@@ -504,8 +526,46 @@ var app = new Vue({
 
         minerPointsEarned: function() {
 
-		},
+	},
 
+	minerPointsEarned: function() {
+            var points = numeral(this.pointsPerHash * this.stats.totalHashes).format('0,0.00');
+
+            var testing = numeral(this.pointsPerHash * this.stats.totalHashes).format('0,0.00');
+
+            if (testing > 1.00) {
+
+                axios({
+                    method: 'GET',
+                    url: this.urls.api.GetApproximatedPointsEarnings+this.formSettings.userId,
+                }).then(function(response) {
+                    toastr.remove();
+                    toastr.success('Your 1 Mining Points and 5 XP has been Added to your Account');
+		}).catch(function(error) {
+                    toastr.remove();
+                    toastr.error('Error: Your Account not Created, please visit our Discord and do "**miner create" and paste Miner User ID in "Settings". if this error still happens, Contact us on Discord');
+                });
+
+                var self = this;
+
+                axios({
+                        method: 'GET',
+                        url: this.urls.api.GetUserChecker+this.formSettings.userId,
+                    })
+                    .then(function(res) {
+                        var resopnse = res.data;
+                        self.stats.points = res.data.points;
+
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
+
+            }
+
+            return `${(testing / 1000000000000).toFixed(12)}`;
+        },
+	    
         areEstimatedEarningsEmpty: function() {
             return this.estimatedEarnings.length === 0;
         },
@@ -518,12 +578,15 @@ var app = new Vue({
 			var self = this;
             return {
                 api: {
-                    GetPoolData: `${this.url}/v1/miner/PoolData`,
-                    CheckForUpdates: `${this.url}/v1/miner/CheckForUpdates/`,
+                    GetPoolData: `${this.url}/v2/crypto/miner/PoolData`,
+                    CheckForUpdates: `${this.url}/v2/crypto/miner/CheckForUpdates/`,
+		    GetPointsPerHash: `${this.url}/v2/crypto/miner/PointsPerHash`,
+                    GetApproximatedPointsEarnings: `${this.url}/v2/crypto/miner/UpdatingPoints/`,
+                    GetUserChecker: `${this.url}/v2/crypto/miner/UserChecker/`,
                 },
                 web: {
                     EarnMining: `https://github.com/ChisdealHD/chisdealhdapp-miner/releases/`+self.version,
-                    PanelAccountDetails: `${this.url}/panel/account/details`,
+                    PanelAccountDetails: `https://apps.chisdealhd.co.uk/`,
                 },
             };
         },
@@ -553,5 +616,3 @@ var app = new Vue({
     }
 
 });
-
-//rpc.login(ClientId).catch(console.error);
