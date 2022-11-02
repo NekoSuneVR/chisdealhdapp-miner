@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.18.1",
-    "bootstrap": "^4.1.0",
+    "bootstrap": "^4.3.1",
     "discord-rich-presence": "0.0.8",
     "electron-settings": "^3.1.4",
     "font-awesome": "^4.7.0",
