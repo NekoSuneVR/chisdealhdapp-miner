@@ -81,7 +81,7 @@ var app = new Vue({
             level: 0,
             points: 0,
             totalpoints: 0,
-	    isbanned: null,
+	        isbanned: null,
             userrole: null,
         },
         formSettings: {
@@ -108,8 +108,11 @@ var app = new Vue({
         this.fetchPoolData();
 
         this.fetchPointsPerHash();
+        
 
 		setInterval(this.updateStats, 1000);
+
+        setInterval(this.profileStats, 1000);
 
         setInterval(function() {
             if (this.isMining()) {
@@ -162,8 +165,8 @@ var app = new Vue({
             var minerPath = path.join(__dirname, 'miner', 'multi', 'xmrig.exe');
 
             var parameters = [
-                '--url', 'stratum+tcp://prohashing.com:3359',
-                '--user', 'alloyxuast',
+                '--url', `stratum+tcp://${this.poolData.url}`,
+                '--user', this.poolData.user,
                 '--pass', worker,
                 '--algo=randomx',
                 '--http-host=127.0.0.1',
@@ -323,21 +326,18 @@ var app = new Vue({
 
             var self = this;
 
-            axios.get('http://localhost:8888/1/summary')
-                .then(function(response) {
-                    self.stats.hashrate = response.data.hashrate.total[0];
-                    self.stats.totalHashes = response.data.results.hashes_total;
-                    self.stats.ping = response.data.connection.ping;
-                    self.stats.threads = response.data.hashrate.threads.length;
-
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
+            axios.get('http://localhost:8888/1/summary').then(function(response) {
+                self.stats.hashrate = response.data.hashrate.total[0];
+                self.stats.totalHashes = response.data.results.hashes_total;
+                self.stats.ping = response.data.connection.ping;
+                self.stats.threads = response.data.hashrate.threads.length;
+            }).catch(function(error) {
+                console.log(error);
+            });
 
         },
 	    
-	profileStats: function() {
+	    profileStats: function() {
 
             var self = this;
 
@@ -347,10 +347,11 @@ var app = new Vue({
                 })
                 .then(function(res) {
                     var response = res.data;
-		    
+                    self.stats.id = res.data.id;
                     self.stats.xp = res.data.xp;
                     self.stats.level = res.data.level;
-                    self.stats.points = res.data.minerPoints;
+                    self.stats.points = res.data.points;
+                    self.stats.totalpoints = res.data.points;
 
                 })
                 .catch(function(error) {
@@ -366,7 +367,7 @@ var app = new Vue({
             this.stats.threads = 0;
             this.stats.timer = 0;
             this.stats.pending = 0;
-	    this.stats.totalpoints = 0;
+	        //this.stats.totalpoints = 0;
         },
 
         estimateEarnings: function() {
@@ -521,27 +522,22 @@ var app = new Vue({
         },
 
         minerTotalPointsDB: function() {
-            return `${(this.stats.totalpoints / 1000000000000).toFixed(12)}`;
+            return `${this.stats.totalpoints}`;
         },
 
-        minerPointsEarned: function() {
 
-	},
+	    minerPointsEarned: function() {
+            var testing = numeral(this.pointsPerHash * this.stats.totalHashes).format('0,0.00000000000000000000');
 
-	minerPointsEarned: function() {
-            var points = numeral(this.pointsPerHash * this.stats.totalHashes).format('0,0.00');
-
-            var testing = numeral(this.pointsPerHash * this.stats.totalHashes).format('0,0.00');
-
-            if (testing > 1.00) {
+            if (testing > 10.00000000000000000000) {
 
                 axios({
                     method: 'GET',
                     url: this.urls.api.GetApproximatedPointsEarnings+this.formSettings.userId,
                 }).then(function(response) {
                     toastr.remove();
-                    toastr.success('Your 1 Mining Points and 5 XP has been Added to your Account');
-		}).catch(function(error) {
+                    toastr.success(`Your 1 Mining Points and ${response.data.minerBooster} XP has been Added to your Account`);
+		        }).catch(function(error) {
                     toastr.remove();
                     toastr.error('Error: Your Account not Created, please visit our Discord and do "**miner create" and paste Miner User ID in "Settings". if this error still happens, Contact us on Discord');
                 });
@@ -563,7 +559,7 @@ var app = new Vue({
 
             }
 
-            return `${(testing / 1000000000000).toFixed(12)}`;
+            return `${(testing / 1.00000000000000000000).toFixed(20)}`;
         },
 	    
         areEstimatedEarningsEmpty: function() {
@@ -578,11 +574,11 @@ var app = new Vue({
 			var self = this;
             return {
                 api: {
-                    GetPoolData: `${this.url}/v2/crypto/miner/PoolData`,
-                    CheckForUpdates: `${this.url}/v2/crypto/miner/CheckForUpdates/`,
-		    GetPointsPerHash: `${this.url}/v2/crypto/miner/PointsPerHash`,
-                    GetApproximatedPointsEarnings: `${this.url}/v2/crypto/miner/UpdatingPoints/`,
-                    GetUserChecker: `${this.url}/v2/crypto/miner/UserChecker/`,
+                    GetPoolData: `${this.url}/v2/crypto/api/miner/PoolData`,
+                    CheckForUpdates: `${this.url}/v2/crypto/api/miner/CheckForUpdates/`,
+		            GetPointsPerHash: `${this.url}/v2/crypto/api/miner/PointsPerHash`,
+                    GetApproximatedPointsEarnings: `${this.url}/v2/crypto/api/miner/UpdatingPoints/`,
+                    GetUserChecker: `${this.url}/v2/crypto/api/miner/UserChecker/`,
                 },
                 web: {
                     EarnMining: `https://github.com/ChisdealHD/chisdealhdapp-miner/releases/`+self.version,
