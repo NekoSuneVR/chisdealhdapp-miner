@@ -154,7 +154,7 @@ var app = new Vue({
             // make sure the userId has a valid format
             if (/^[0-9]+$/.test(this.formSettings.userId) !== true) {
                 toastr.remove();
-                toastr.error('Please set a valid Discord UserID in the "Settings" tab.');
+                toastr.error('Please set a valid Miner UserID in the "Settings" tab.');
                 return;
             }
 
