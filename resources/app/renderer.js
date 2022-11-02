@@ -581,7 +581,7 @@ var app = new Vue({
                     GetUserChecker: `${this.url}/v2/crypto/api/miner/UserChecker/`,
                 },
                 web: {
-                    EarnMining: `https://github.com/ChisdealHD/chisdealhdapp-miner/releases/`+self.version,
+                    EarnMining: `https://github.com/ChisVR/chisdealhdapp-miner/releases/`+self.version,
                     PanelAccountDetails: `https://apps.chisdealhd.co.uk/`,
                 },
             };
