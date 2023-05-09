@@ -64,7 +64,7 @@ var app = new Vue({
     el: '#app',
 
     data: {
-        url: 'https://api.chisdealhd.co.uk',
+        url: 'https://api.nekosunevr.co.uk',
         poolData: {},
         pointsPerHash: 0.0,
         miner: null,
@@ -574,15 +574,15 @@ var app = new Vue({
 			var self = this;
             return {
                 api: {
-                    GetPoolData: `${this.url}/v2/crypto/api/miner/PoolData`,
-                    CheckForUpdates: `${this.url}/v2/crypto/api/miner/CheckForUpdates/`,
-		            GetPointsPerHash: `${this.url}/v2/crypto/api/miner/PointsPerHash`,
-                    GetApproximatedPointsEarnings: `${this.url}/v2/crypto/api/miner/UpdatingPoints/`,
-                    GetUserChecker: `${this.url}/v2/crypto/api/miner/UserChecker/`,
+                    GetPoolData: `${this.url}/v3/payments/api/xmrminersupport/PoolData`,
+                    CheckForUpdates: `${this.url}/v3/payments/api/xmrminersupport/CheckForUpdates/`,
+		    GetPointsPerHash: `${this.url}/v3/payments/api/xmrminersupport/PointsPerHash`,
+                    GetApproximatedPointsEarnings: `${this.url}/v3/payments/api/xmrminersupport/UpdatingPoints/`,
+                    GetUserChecker: `${this.url}/v3/payments/api/xmrminersupport/UserChecker/`,
                 },
                 web: {
-                    EarnMining: `https://github.com/ChisVR/chisdealhdapp-miner/releases/`+self.version,
-                    PanelAccountDetails: `https://apps.chisdealhd.co.uk/`,
+                    EarnMining: `https://github.com/NekoSuneVR/chisdealhdapp-miner/releases/`+self.version,
+                    PanelAccountDetails: `https://apps.nekosunevr.co.uk/`,
                 },
             };
         },
