@@ -211,7 +211,6 @@ var app = new Vue({
                            '--donate-level=5',
                         ];
                         break;
-                        break;
                     }
                 default:
                     // this should never happen
