@@ -87,7 +87,7 @@ var app = new Vue({
         formSettings: {
             type: settings.get('type', 'cpu'),
             cputype: settings.get('cputype', 'all'),
-	    cryptotype: settings.get('crypto_type', 'XMR'),
+	    cryptotype: settings.get('cryptotype', 'XMR'),
             workerId: settings.get('worker_id', '1'),
             userId: settings.get('user_id', null),
             uac: settings.get('uac', 'disabled'),
@@ -129,7 +129,7 @@ var app = new Vue({
             settings.set('type', this.formSettings.type);
             settings.set('cputype', this.formSettings.cputype);
             settings.set('worker_id', this.formSettings.workerId);
-	    settings.set('crypto_type', this.formSettings.cryptotype);
+	    settings.set('cryptotype', this.formSettings.cryptotype);
             settings.set('user_id', this.formSettings.userId);
             settings.set('uac', this.formSettings.uac);
 
@@ -159,50 +159,22 @@ var app = new Vue({
                 toastr.error('Please set a valid Miner UserID in the "Settings" tab.');
                 return;
             }
+		
+	    var workerid = `${this.formSettings.cryptotype}:${this.poolData[this.formSettings.cryptotype].user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData[this.formSettings.cryptotype].REF}`;
 
-            var parameters = [
-		`--url=stratum+ssl://${this.poolData.XMR.XMR.url}`,
+            this.logMessage('Miner started.');
+            var minerPath = path.join(__dirname, 'miner', 'multi', 'xmrig.exe');
+		
+	    var parameters = [
+		'--url', `stratum+ssl://${this.poolData[this.formSettings.cryptotype].XMR.url}`,
+		'--user', `${workerid}`,
+		'--pass', `x`,
 		'--algo=randomx',
                 '--http-host=127.0.0.1',
                 '--http-port=8888',
                 '--donate-level=5',
             ];
-
-            this.logMessage('Miner started.');
-            var minerPath = path.join(__dirname, 'miner', 'multi', 'xmrig.exe');
-
-	    switch (this.formSettings.cyprotype) {
-
-                case 'XMR':
-                    {
-		       var workerid = `XMR:${this.poolData.XMR.user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData.XMR.REF}`;
-                       var worker = `x`;
-                       parameters.push(`--user=${workerid}`);
-                       parameters.push(`--pass=${worker}`);
-                       break;
-                    }
-
-                case 'SHIB':
-                    {
-                       var workerid = `SHIB:${this.poolData.SHIB.user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData.SHIB.REF}`;
-                       var worker = `x`;
-                       parameters.push(`--user=${workerid}`);
-                       parameters.push(`--pass=${worker}`);
-                       break;
-                    }
-
-                case 'ENJ':
-                    {
-                       var workerid = `ENJ:${this.poolData.ENJ.user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData.ENJ.REF}`;
-                       var worker = `x`;
-                       parameters.push(`--user=${workerid}`);
-                       parameters.push(`--pass=${worker}`);
-                       break;
-                    }
-                default:
-                    // this should never happen
-            }
-
+		
             switch (this.formSettings.type) {
 
                 case 'gpu_and_cpu':
