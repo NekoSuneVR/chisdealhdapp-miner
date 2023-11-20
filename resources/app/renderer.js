@@ -165,10 +165,10 @@ var app = new Vue({
 
                 case 'XMR':
                     {
-		       var workerid = `XMR:${this.poolData.user}.${this.formSettings.userId}_${this.formSettings.workerId}#rqhx-wivn`;
+		       var workerid = `XMR:${this.poolData.XMR.user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData.XMR.REF}`;
                        var worker = `x`;
                        var parameters = [
-                	   '--url', `stratum+ssl://${this.poolData.url}`,
+                	   '--url', `stratum+ssl://${this.poolData.XMR.XMR.url}`,
                            '--user', workerid,
                            '--pass', worker,
                            '--algo=randomx',
@@ -179,17 +179,36 @@ var app = new Vue({
                         break;
                     }
 
-                case 'gpu':
+                case 'SHIB':
                     {
-                        parameters.push('--opencl');
-                        parameters.push('--cuda');
-                        parameters.push('--no-cpu');
+                       var workerid = `SHIB:${this.poolData.SHIB.user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData.SHIB.REF}`;
+                       var worker = `x`;
+                       var parameters = [
+                	   '--url', `stratum+ssl://${this.poolData.SHIB.XMR.url}`,
+                           '--user', workerid,
+                           '--pass', worker,
+                           '--algo=randomx',
+                           '--http-host=127.0.0.1',
+                           '--http-port=8888',
+                           '--donate-level=5',
+                        ];
                         break;
                     }
 
-                case 'cpu':
+                case 'ENJ':
                     {
-                        // do nothing
+                       var workerid = `SHIB:${this.poolData.ENJ.user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData.ENJ.REF}`;
+                       var worker = `x`;
+                       var parameters = [
+                	   '--url', `stratum+ssl://${this.poolData.ENJ.XMR.url}`,
+                           '--user', workerid,
+                           '--pass', worker,
+                           '--algo=randomx',
+                           '--http-host=127.0.0.1',
+                           '--http-port=8888',
+                           '--donate-level=5',
+                        ];
+                        break;
                         break;
                     }
                 default:
