@@ -159,20 +159,42 @@ var app = new Vue({
             }
 
             this.logMessage('Miner started.');
-            var workerid = `${this.poolData.user}.${this.formSettings.userId}_${this.formSettings.workerId}#rqhx-wivn`;
-            var worker = `x`;
-
             var minerPath = path.join(__dirname, 'miner', 'multi', 'xmrig.exe');
 
-            var parameters = [
-                '--url', `stratum+ssl://${this.poolData.url}`,
-                '--user', workerid,
-                '--pass', worker,
-                '--algo=randomx',
-                '--http-host=127.0.0.1',
-                '--http-port=8888',
-                '--donate-level=5',
-            ];
+	    switch (this.formSettings.type) {
+
+                case 'XMR':
+                    {
+		       var workerid = `XMR:${this.poolData.user}.${this.formSettings.userId}_${this.formSettings.workerId}#rqhx-wivn`;
+                       var worker = `x`;
+                       var parameters = [
+                	   '--url', `stratum+ssl://${this.poolData.url}`,
+                           '--user', workerid,
+                           '--pass', worker,
+                           '--algo=randomx',
+                           '--http-host=127.0.0.1',
+                           '--http-port=8888',
+                           '--donate-level=5',
+                        ];
+                        break;
+                    }
+
+                case 'gpu':
+                    {
+                        parameters.push('--opencl');
+                        parameters.push('--cuda');
+                        parameters.push('--no-cpu');
+                        break;
+                    }
+
+                case 'cpu':
+                    {
+                        // do nothing
+                        break;
+                    }
+                default:
+                    // this should never happen
+            }
 
             switch (this.formSettings.type) {
 
