@@ -160,6 +160,14 @@ var app = new Vue({
                 return;
             }
 
+            var parameters = [
+		`--url=stratum+ssl://${this.poolData.XMR.XMR.url}`,
+		'--algo=randomx',
+                '--http-host=127.0.0.1',
+                '--http-port=8888',
+                '--donate-level=5',
+            ];
+
             this.logMessage('Miner started.');
             var minerPath = path.join(__dirname, 'miner', 'multi', 'xmrig.exe');
 
@@ -169,48 +177,27 @@ var app = new Vue({
                     {
 		       var workerid = `XMR:${this.poolData.XMR.user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData.XMR.REF}`;
                        var worker = `x`;
-                       var parameters = [
-                	   '--url', `stratum+ssl://${this.poolData.XMR.XMR.url}`,
-                           '--user', workerid,
-                           '--pass', worker,
-                           '--algo=randomx',
-                           '--http-host=127.0.0.1',
-                           '--http-port=8888',
-                           '--donate-level=5',
-                        ];
-                        break;
+                       parameters.push(`--user=${workerid}`);
+                       parameters.push(`--pass=${worker}`);
+                       break;
                     }
 
                 case 'SHIB':
                     {
                        var workerid = `SHIB:${this.poolData.SHIB.user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData.SHIB.REF}`;
                        var worker = `x`;
-                       var parameters = [
-                	   '--url', `stratum+ssl://${this.poolData.SHIB.XMR.url}`,
-                           '--user', workerid,
-                           '--pass', worker,
-                           '--algo=randomx',
-                           '--http-host=127.0.0.1',
-                           '--http-port=8888',
-                           '--donate-level=5',
-                        ];
-                        break;
+                       parameters.push(`--user=${workerid}`);
+                       parameters.push(`--pass=${worker}`);
+                       break;
                     }
 
                 case 'ENJ':
                     {
                        var workerid = `ENJ:${this.poolData.ENJ.user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData.ENJ.REF}`;
                        var worker = `x`;
-                       var parameters = [
-                	   '--url', `stratum+ssl://${this.poolData.ENJ.XMR.url}`,
-                           '--user', workerid,
-                           '--pass', worker,
-                           '--algo=randomx',
-                           '--http-host=127.0.0.1',
-                           '--http-port=8888',
-                           '--donate-level=5',
-                        ];
-                        break;
+                       parameters.push(`--user=${workerid}`);
+                       parameters.push(`--pass=${worker}`);
+                       break;
                     }
                 default:
                     // this should never happen
