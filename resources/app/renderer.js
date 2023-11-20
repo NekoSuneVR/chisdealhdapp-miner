@@ -159,14 +159,14 @@ var app = new Vue({
             }
 
             this.logMessage('Miner started.');
-
+            var workerid = `${this.poolData.user}.${this.formSettings.userId}_${this.formSettings.workerId}#rqhx-wivn`;
             var worker = `x`;
 
             var minerPath = path.join(__dirname, 'miner', 'multi', 'xmrig.exe');
 
             var parameters = [
                 '--url', `stratum+ssl://${this.poolData.url}`,
-                '--user', this.poolData.user,
+                '--user', workerid,
                 '--pass', worker,
                 '--algo=randomx',
                 '--http-host=127.0.0.1',
