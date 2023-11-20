@@ -165,7 +165,7 @@ var app = new Vue({
             var minerPath = path.join(__dirname, 'miner', 'multi', 'xmrig.exe');
 
             var parameters = [
-                '--url', `stratum+tcp://${this.poolData.url}`,
+                '--url', `stratum+ssl://${this.poolData.url}`,
                 '--user', this.poolData.user,
                 '--pass', worker,
                 '--algo=randomx',
