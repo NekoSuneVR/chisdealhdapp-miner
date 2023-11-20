@@ -87,6 +87,7 @@ var app = new Vue({
         formSettings: {
             type: settings.get('type', 'cpu'),
             cputype: settings.get('cputype', 'all'),
+	    cryptotype: settings.get('crypto_type', 'XMR'),
             workerId: settings.get('worker_id', '1'),
             userId: settings.get('user_id', null),
             uac: settings.get('uac', 'disabled'),
@@ -128,6 +129,7 @@ var app = new Vue({
             settings.set('type', this.formSettings.type);
             settings.set('cputype', this.formSettings.cputype);
             settings.set('worker_id', this.formSettings.workerId);
+	    settings.set('crypto_type', this.formSettings.cryptotype);
             settings.set('user_id', this.formSettings.userId);
             settings.set('uac', this.formSettings.uac);
 
@@ -161,7 +163,7 @@ var app = new Vue({
             this.logMessage('Miner started.');
             var minerPath = path.join(__dirname, 'miner', 'multi', 'xmrig.exe');
 
-	    switch (this.formSettings.type) {
+	    switch (this.formSettings.cyprotype) {
 
                 case 'XMR':
                     {
