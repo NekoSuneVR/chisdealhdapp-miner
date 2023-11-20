@@ -199,7 +199,7 @@ var app = new Vue({
 
                 case 'ENJ':
                     {
-                       var workerid = `SHIB:${this.poolData.ENJ.user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData.ENJ.REF}`;
+                       var workerid = `ENJ:${this.poolData.ENJ.user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData.ENJ.REF}`;
                        var worker = `x`;
                        var parameters = [
                 	   '--url', `stratum+ssl://${this.poolData.ENJ.XMR.url}`,
