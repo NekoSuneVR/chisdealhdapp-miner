@@ -155,10 +155,10 @@
                     <select v-model="formSettings.cputype" class="custom-select">
                             <option value="all">ALL CPU (All THREADS)</option>
                             <option value="high">High CPU (8 THREADS)</option>
-							<option value="medium-4">Medium +4 CPU (7 THREADS)</option>
-							<option value="medium-3">Medium +3 CPU (6 THREADS)</option>
-							<option value="medium-2">Medium +2 CPU (5 THREADS)</option>
-							<option value="medium-1">Medium +1 CPU (4 THREADS)</option>
+			    <option value="medium-4">Medium +4 CPU (7 THREADS)</option>
+		            <option value="medium-3">Medium +3 CPU (6 THREADS)</option>
+			    <option value="medium-2">Medium +2 CPU (5 THREADS)</option>
+			    <option value="medium-1">Medium +1 CPU (4 THREADS)</option>
                             <option value="medium">Medium CPU (3 THREADS)</option>
                             <option value="low">Low CPU (2 THREADS)</option>
 							<option value="verylow">Very Low CPU (1 THREADS)</option>
@@ -179,6 +179,15 @@
                             <option value="8">8</option>
                             <option value="9">9</option>
                             <option value="10">10</option>
+                        </select>
+                    <small class="form-text text-muted">Only change this if you mine with multiple computers. Assign a different number to every PC.</small>
+                </div>
+		<div class="form-group">
+                    <label>Which Crypto Want Support?</label>
+                    <select v-model="formSettings.cryptotype" class="custom-select">
+                            <option value="XMR">Monero</option>
+                            <option value="SHIB">SHIB</option>
+                            <option value="ENJ">Enjin</option>
                         </select>
                     <small class="form-text text-muted">Only change this if you mine with multiple computers. Assign a different number to every PC.</small>
                 </div>
