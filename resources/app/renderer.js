@@ -160,7 +160,7 @@ var app = new Vue({
 
             this.logMessage('Miner started.');
 
-            var worker = `o=${this.formSettings.userId}`;
+            var worker = `x`;
 
             var minerPath = path.join(__dirname, 'miner', 'multi', 'xmrig.exe');
 
