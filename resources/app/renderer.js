@@ -529,10 +529,8 @@ var app = new Vue({
 
 	    minerPointsEarned: function() {
             var testing = numeral(this.pointsPerHash * this.stats.totalHashes).format('0,0.00000000000000000000');
-             
-            //console.log(testing)
 
-            //if (testing > 1.00000000000000000000) {
+            if (testing > 1.00000000000000000000) {
 
                 axios({
                     method: 'GET',
@@ -560,7 +558,7 @@ var app = new Vue({
                         console.log(error);
                     });
 
-            //}
+            }
 
             return `${(testing / 1.00000000000000000000).toFixed(20)}`;
         },
