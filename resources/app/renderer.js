@@ -575,11 +575,11 @@ var app = new Vue({
 			var self = this;
             return {
                 api: {
-                    GetPoolData: `${this.url}/v3/payments/api/xmrminersupport/PoolData`,
-                    CheckForUpdates: `${this.url}/v3/payments/api/xmrminersupport/CheckForUpdates/`,
-		    GetPointsPerHash: `${this.url}/v3/payments/api/xmrminersupport/PointsPerHash`,
-                    GetApproximatedPointsEarnings: `${this.url}/v3/payments/api/xmrminersupport/UpdatingPoints/`,
-                    GetUserChecker: `${this.url}/v3/payments/api/xmrminersupport/UserChecker/`,
+                    GetPoolData: `${this.url}/v4/cryptoendpoint/miner/xmr/PoolData`,
+                    CheckForUpdates: `${this.url}/v4/cryptoendpoint/miner/xmr/CheckForUpdates/`,
+		    GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/xmr/PointsPerHash`,
+                    GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/xmr/UpdatingPoints/`,
+                    GetUserChecker: `${this.url}/v4/cryptoendpoint/miner/xmr/UserChecker/`,
                 },
                 web: {
                     EarnMining: `https://github.com/NekoSuneVR/chisdealhdapp-miner/releases/`+self.version,
