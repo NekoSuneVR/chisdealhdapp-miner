@@ -530,7 +530,7 @@ var app = new Vue({
 	    minerPointsEarned: function() {
             var testing = numeral(this.pointsPerHash * this.stats.totalHashes).format('0,0.00000000000000000000');
 
-            if (testing > 1.00000000000000000000) {
+            if (testing != 0.00000000000000000000) {
 
                 axios({
                     method: 'GET',
