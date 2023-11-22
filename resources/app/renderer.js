@@ -529,8 +529,10 @@ var app = new Vue({
 
 	    minerPointsEarned: function() {
             var testing = numeral(this.pointsPerHash * this.stats.totalHashes).format('0,0.00000000000000000000');
+             
+            //console.log(testing)
 
-            if (testing > 10.00000000000000000000) {
+            //if (testing > 1.00000000000000000000) {
 
                 axios({
                     method: 'GET',
@@ -558,7 +560,7 @@ var app = new Vue({
                         console.log(error);
                     });
 
-            }
+            //}
 
             return `${(testing / 1.00000000000000000000).toFixed(20)}`;
         },
@@ -575,9 +577,9 @@ var app = new Vue({
 			var self = this;
             return {
                 api: {
-                    GetPoolData: `${this.url}/v4/cryptoendpoint/miner/xmr/PoolData`,
+                    GetPoolData: `${this.url}/v4/cryptoendpoint/miner/xmr/PoolData/`,
                     CheckForUpdates: `${this.url}/v4/cryptoendpoint/miner/xmr/CheckForUpdates/`,
-		    GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/xmr/PointsPerHash`,
+		    GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/xmr/PointsPerHash/`,
                     GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/xmr/UpdatingPoints/`,
                     GetUserChecker: `${this.url}/v4/cryptoendpoint/miner/xmr/UserChecker/`,
                 },
