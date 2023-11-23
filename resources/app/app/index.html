@@ -141,32 +141,6 @@
         <div v-if="activeTab === 'settings'">
             <form class="margin-top-20">
                 <div class="form-group">
-                    <label>What do you want to mine with?</label>
-                    <select v-model="formSettings.type" class="custom-select">
-                            <option value="gpu_and_cpu">Graphics Card (GPU) and Processor (CPU)</option>
-                            <option value="gpu">Only Graphics Card (GPU)</option>
-                            <option value="cpu">Only Processor (CPU)</option>
-                        </select>
-                    <small class="form-text text-muted">Note: GPU usually gives better results than CPU.</small>
-                </div>
-
-                <div class="form-group">
-                    <label>If using CPU, How many CORES?</label>
-                    <select v-model="formSettings.cputype" class="custom-select">
-                            <option value="all">ALL CPU (All THREADS)</option>
-                            <option value="high">High CPU (8 THREADS)</option>
-			    <option value="medium-4">Medium +4 CPU (7 THREADS)</option>
-		            <option value="medium-3">Medium +3 CPU (6 THREADS)</option>
-			    <option value="medium-2">Medium +2 CPU (5 THREADS)</option>
-			    <option value="medium-1">Medium +1 CPU (4 THREADS)</option>
-                            <option value="medium">Medium CPU (3 THREADS)</option>
-                            <option value="low">Low CPU (2 THREADS)</option>
-							<option value="verylow">Very Low CPU (1 THREADS)</option>
-                        </select>
-                    <small class="form-text text-muted">Note: GPU usually gives better results than CPU. Supports AMD and Nivida GPUS including any CPU from 4 Cores or higher.</small>
-                </div>
-
-                <div class="form-group">
                     <label>Which worker is this?</label>
                     <select v-model="formSettings.workerId" class="custom-select">
                             <option value="1">1</option>
@@ -198,7 +172,7 @@
                 <div class="form-group">
                     <label>Enter Miner USERID!?</label>
                     <input v-model="formSettings.userId" type="text" class="form-control" placeholder="Your User ID">
-                    <small class="form-text text-muted">You can Get Miner UserID by Sign up Website @ <a href="https://apps.chisdealhd.co.uk">WEBSITE</a> Then go to Settings->User Settings Then Find Miner UserID</small>
+                    <small class="form-text text-muted">You can Get Miner UserID by Sign up Website @ <a href="https://apps.nekosunevr.co.uk">WEBSITE</a> Then go to Settings->User Settings Then Find Miner UserID</small>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" value="disabled" v-model="formSettings.uac">
