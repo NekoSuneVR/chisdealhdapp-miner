@@ -6,7 +6,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "packager": "electron-packager . chisdealhdapp-miner --platform=win32 --arch=x64 --icon=icon.ico --out=./dist --overwrite"
+    "packager": "electron-packager . chisdealhdapp-xmr-miner --platform=win32 --arch=x64 --icon=icon.ico --out=./dist --overwrite"
   },
   "dependencies": {
     "axios": "^0.18.1",
