@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "chisdealhdapp-miner",
+  "name": "chisdealhdapp-xmr-miner",
   "version": "0.3.7",
   "description": "Basic miner interface for ChisdealHDAPP",
   "main": "main.js",
