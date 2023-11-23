@@ -537,8 +537,11 @@ var app = new Vue({
                     url: this.urls.api.GetApproximatedPointsEarnings+this.formSettings.userId,
                 }).then(function(response) {
                     toastr.remove();
-                    toastr.success(`Your 1 Mining Points and ${response.data.minerBooster} XP has been Added to your Account`);
-		        }).catch(function(error) {
+                    if (response.status == 403) {
+			toastr.error('We have found Your Account But Give it 1 Hour to Verify to Earn Points, take few Tries before Earning.') 
+                    }
+                    toastr.success(`Your Recieved Mining Points and ${response.data.minerBooster} XP has been Added to your Account`);
+		}).catch(function(error) {
                     toastr.remove();
                     toastr.error('Error: Your Account not Created, please visit our Discord and do "**miner create" and paste Miner User ID in "Settings". if this error still happens, Contact us on Discord');
                 });
