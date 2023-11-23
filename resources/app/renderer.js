@@ -496,7 +496,7 @@ var app = new Vue({
                     GetPoolData: `${this.url}/v4/cryptoendpoint/miner/xmr/PoolData/`,
                     CheckForUpdates: `${this.url}/v4/cryptoendpoint/miner/xmr/CheckForUpdates/`,
 		    GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/xmr/PointsPerHash/`,
-                    GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/xmr/UpdatingPoints/`,
+                    GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/trex/UpdatingPoints/`,
                     GetUserChecker: `${this.url}/v4/cryptoendpoint/miner/xmr/UserChecker/`,
                 },
                 web: {
