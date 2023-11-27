@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "chisdealhdapp-trex-miner",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "Basic miner interface for ChisdealHDAPP",
   "main": "main.js",
   "scripts": {
