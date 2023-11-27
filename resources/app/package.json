@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "chisdealhdapp-trex-miner",
+  "name": "chisdealhdapp-lolminer-miner",
   "version": "0.3.8",
   "description": "Basic miner interface for ChisdealHDAPP",
   "main": "main.js",
