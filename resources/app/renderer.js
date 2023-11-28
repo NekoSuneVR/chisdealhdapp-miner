@@ -439,6 +439,10 @@ var app = new Vue({
             return `${hashes}`;
         },
 
+        RecomendedCoin: function() {
+            return `Recomended (${this.poolDataRec.coin})`;
+        },
+
         minerPing: function() {
             var ping = numeral(this.stats.ping).format('0,0');
             return `NON PING REQUIRED`;
