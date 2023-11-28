@@ -166,7 +166,8 @@ var app = new Vue({
 		
             switch (this.formSettings.cryptotype) {
 		case 'RECOMENDED':
-                    workerid = `${this.poolDataRec.coin}:${this.poolDataRec.user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolDataRec.REF}`;
+		    var custompool = this.poolDataRec.user.replace("{{MINERID}}", `${this.formSettings.userId}_${this.formSettings.workerId}`);
+                    workerid = `${custompool}`;
 		    parameters = [
                       '--url', `${this.poolDataRec.url}`,
 		      '--user', `${workerid}`,
