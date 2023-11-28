@@ -66,6 +66,7 @@ var app = new Vue({
     data: {
         url: 'https://api.nekosunevr.co.uk',
         poolData: {},
+        poolDataRec: {},
         pointsPerHash: 0.0,
         miner: null,
         activeTab: 'miner',
@@ -87,7 +88,7 @@ var app = new Vue({
         formSettings: {
             type: settings.get('type', 'cpu'),
             cputype: settings.get('cputype', 'all'),
-	    cryptotype: settings.get('cryptotype', 'XMR'),
+	    cryptotype: settings.get('cryptotype', 'RECOMENDED'),
             workerId: settings.get('worker_id', '1'),
             userId: settings.get('user_id', null),
             uac: settings.get('uac', 'disabled'),
@@ -159,24 +160,39 @@ var app = new Vue({
                 return;
             }
 		
-	    var workerid = `${this.formSettings.cryptotype}:${this.poolData[this.formSettings.cryptotype].user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData[this.formSettings.cryptotype].REF}`;
+	    let workerid, parameters ;
 
             this.logMessage('Miner started.');
+
+	    switch (this.formSettings.cryptotype) {
+		case 'RECOMENDED':
+                    workerid = `${this.poolDataRec.coin}:${this.poolDataRec.user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolDataRec.REF}`;
+		    parameters = [
+                      '--apihost',  '127.0.0.1',
+                      '--apiport',  '8888',
+                      '--algo', `${this.poolDataRec.algo}`,
+                      '--pers', `${this.poolDataRec.pers}`,
+		      '--pool', `${this.poolDataRec.url}`,
+                      '--user', `${workerid}`,
+                      '--pass', `x`,
+                    ];
+		default:
+                    workerid = `${this.formSettings.cryptotype}:${this.poolData[this.formSettings.cryptotype].user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData[this.formSettings.cryptotype].REF}`;
+            	    parameters = [
+                      '--apihost',  '127.0.0.1',
+                      '--apiport',  '8888',
+                      '--algo', `${this.poolData[this.formSettings.cryptotype].LOLMINER.algo}`,
+                      '--pers', `${this.poolData[this.formSettings.cryptotype].LOLMINER.pers}`,
+		      '--pool', `${this.poolData[this.formSettings.cryptotype].LOLMINER.url}`,
+                      '--user', `${workerid}`,
+                      '--pass', `x`,
+                    ];
+	    }
+		
             var minerPath = path.join(__dirname, 'miner', 'multi', 'lolMiner.exe');
-		
-	    var parameters = [
-                '--apihost',  '127.0.0.1',
-                '--apiport',  '8888',
-                '--algo', `${this.poolData[this.formSettings.cryptotype].LOLMINER.algo}`,
-                '--pers', `${this.poolData[this.formSettings.cryptotype].LOLMINER.pers}`,
-		'--pool', `${this.poolData[this.formSettings.cryptotype].LOLMINER.url}`,
-                '--user', `${workerid}`,
-                '--pass', `x`,
-            ];
-		
-            switch (this.formSettings.type) {
+
+	    switch (this.formSettings.type) {
                 default:
-                    // this should never happen
             }
 
 
@@ -347,6 +363,16 @@ var app = new Vue({
                     console.log(error);
                 });
         },
+        fetchPoolDataRec: function() {
+            var self = this;
+            axios.get(this.urls.api.GetPoolDataRec)
+                .then(function(response) {
+                    self.poolDataRec = response.data.result.data;
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+        },
 
         fetchPointsPerHash: function() {
             var self = this;
@@ -495,6 +521,7 @@ var app = new Vue({
             return {
                 api: {
                     GetPoolData: `${this.url}/v4/cryptoendpoint/miner/xmr/PoolData/`,
+		    GetPoolDataRec: `${this.url}/v4/cryptoendpoint/miner/xmr/recomended/PoolData/`,
                     CheckForUpdates: `${this.url}/v4/cryptoendpoint/miner/xmr/CheckForUpdates/`,
 		    GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/lolminer/PointsPerHash/`,
                     GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/lolminer/UpdatingPoints/`,
