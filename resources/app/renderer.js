@@ -66,6 +66,7 @@ var app = new Vue({
     data: {
         url: 'https://api.nekosunevr.co.uk',
         poolData: {},
+	poolDataRec: {},
         pointsPerHash: 0.0,
         miner: null,
         activeTab: 'miner',
@@ -159,22 +160,35 @@ var app = new Vue({
                 toastr.error('Please set a valid Miner UserID in the "Settings" tab.');
                 return;
             }
+	    let workerid, parameters ;
+	    this.logMessage('Miner started.');
 		
-	    var workerid = `${this.formSettings.cryptotype}:${this.poolData[this.formSettings.cryptotype].user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData[this.formSettings.cryptotype].REF}`;
-
-            this.logMessage('Miner started.');
+            switch (this.formSettings.cryptotype) {
+		case 'RECOMENDED':
+                    workerid = `${this.poolDataRec.coin}:${this.poolDataRec.user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolDataRec.REF}`;
+		    parameters = [
+                      '--url', `stratum+ssl:/${this.poolDataRec.url}`,
+		      '--user', `${workerid}`,
+		      '--pass', `x`,
+		      '--algo', `${this.poolDataRec.algo}`,
+                      '--http-host=127.0.0.1',
+                      '--http-port=8888',
+                      '--donate-level=5',
+                    ];
+		default:
+                    workerid = `${this.formSettings.cryptotype}:${this.poolData[this.formSettings.cryptotype].user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData[this.formSettings.cryptotype].REF}`;
+            	    parameters = [
+                      '--url', `stratum+ssl://${this.poolData[this.formSettings.cryptotype].XMR.url}`,
+		      '--user', `${workerid}`,
+		      '--pass', `x`,
+		      '--algo=randomx',
+                      '--http-host=127.0.0.1',
+                      '--http-port=8888',
+                      '--donate-level=5',
+                    ];
+	    }
             var minerPath = path.join(__dirname, 'miner', 'multi', 'xmrig.exe');
-		
-	    var parameters = [
-		'--url', `stratum+ssl://${this.poolData[this.formSettings.cryptotype].XMR.url}`,
-		'--user', `${workerid}`,
-		'--pass', `x`,
-		'--algo=randomx',
-                '--http-host=127.0.0.1',
-                '--http-port=8888',
-                '--donate-level=5',
-            ];
-		
+
             switch (this.formSettings.type) {
 
                 case 'gpu_and_cpu':
@@ -427,6 +441,14 @@ var app = new Vue({
                 .catch(function(error) {
                     console.log(error);
                 });
+
+	    axios.get(this.urls.api.GetPoolDataRec)
+                .then(function(response) {
+                    self.poolDataRec = response.data.result.data;
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
         },
 
         fetchPointsPerHash: function() {
@@ -495,6 +517,10 @@ var app = new Vue({
         minerHashes: function() {
             var hashes = numeral(this.stats.totalHashes === null ? 0 : this.stats.totalHashes).format('0,0');
             return `${hashes} Hashes`;
+        },
+
+	RecomendedCoin: function() {
+            return `Recomended (${this.poolDataRec.coin})`;
         },
 
         minerPing: function() {
@@ -579,6 +605,7 @@ var app = new Vue({
             return {
                 api: {
                     GetPoolData: `${this.url}/v4/cryptoendpoint/miner/xmr/PoolData/`,
+		    GetPoolDataRec: `${this.url}/v4/cryptoendpoint/miner/xmr/recomended/PoolData/`,
                     CheckForUpdates: `${this.url}/v4/cryptoendpoint/miner/xmr/CheckForUpdates/`,
 		    GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/xmr/PointsPerHash/`,
                     GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/xmr/UpdatingPoints/`,
