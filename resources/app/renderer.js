@@ -163,11 +163,11 @@ var app = new Vue({
 	    let workerid, parameters;
 	    switch (this.formSettings.cryptotype) {
 		case 'RECOMENDED':
-                    workerid = `${this.poolDataRec.coin}:${this.poolDataRec.user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolDataRec.REF}`;
+                    workerid = `${this.poolDataRec.user.replace("{{MINERID}}", `${this.formSettings.userId}_${this.formSettings.workerId}`)}`;
 		    parameters = [
                       '--url', `${this.poolDataRec.url}`,
                       '--user', `${workerid}`,
-                      '--pass', `x`,
+                      '--pass', `${this.poolDataRec.pass.replace("{{MINERID}}", `${this.formSettings.userId}_${this.formSettings.workerId}`)}`,
                       '--algo', `${this.poolDataRec.algo}`,
                       '--api-bind-http',  '127.0.0.1:4067',
                     ];
