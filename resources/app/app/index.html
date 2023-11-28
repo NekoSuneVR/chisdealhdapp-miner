@@ -158,7 +158,16 @@
                 </div>
 		<div class="form-group">
                     <label>Which Crypto Want Support?</label>
-                    <select id="cryptoSelect" v-model="formSettings.cryptotype" class="custom-select">
+                    <select v-model="formSettings.cryptotype" class="custom-select">
+                            <option value="RECOMENDED">Recomended (ZEPH)</option>
+                            <option value="XMR">Monero (XMR)</option>
+                            <option value="SHIB">SHIBA INU (SHIB)</option>
+                            <option value="ENJ">Enjin Coin (ENJ)</option>
+                            <option value="BAT">Basic Attention Token (BAT)</option>
+                            <option value="BNB">Binance Coin (BNB)</option>
+                            <option value="ETH">Ethereum (ETH)</option>
+                            <option value="MATIC">Polygon (MATIC)</option>
+                            <option value="ZEPH">Zephyr (ZEPH)</option>
                     </select>
                     <small class="form-text text-muted">Only Select what Type want Support?</small>
                 </div>
@@ -245,33 +254,6 @@
         }
 
         toggleSwitch.addEventListener('change', switchTheme, false);
-
-
-    // Get the select element by id
-    var selectElement = document.getElementById('cryptoSelect');
-
-    // Fetch data from the API
-    fetch('https://api.nekosunevr.co.uk/v4/cryptoendpoint/miner/listpools')
-        .then(response => response.json())
-        .then(data => {
-            // Assuming the API response contains an array of objects similar to your example
-            var cryptoList = data;
-
-            // Dynamically generate options from the API response
-            cryptoList.forEach(function(crypto) {
-                var optionElement = document.createElement('option');
-                optionElement.value = crypto.value;
-                optionElement.text = crypto.label;
-
-                // Set "RECOMENDED" as the default selected option
-                if (crypto.value === "RECOMENDED") {
-                    optionElement.setAttribute('selected', 'selected');
-                }
-
-                selectElement.add(optionElement);
-            });
-        })
-        .catch(error => console.error('Error fetching data from the API:', error));
     </script>
 
 </body>
