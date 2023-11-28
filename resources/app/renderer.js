@@ -160,17 +160,18 @@ var app = new Vue({
                 toastr.error('Please set a valid Miner UserID in the "Settings" tab.');
                 return;
             }
-	    let workerid, parameters ;
+
+	    let workerid, parameters;
 	    this.logMessage('Miner started.');
 		
             switch (this.formSettings.cryptotype) {
 		case 'RECOMENDED':
                     workerid = `${this.poolDataRec.coin}:${this.poolDataRec.user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolDataRec.REF}`;
 		    parameters = [
-                      '--url', `stratum+ssl:/${this.poolDataRec.url}`,
+                      '--url', `${this.poolDataRec.url}`,
 		      '--user', `${workerid}`,
 		      '--pass', `x`,
-		      '--algo', `${this.poolDataRec.algo}`,
+		      `--algo=${this.poolDataRec.algo}`,
                       '--http-host=127.0.0.1',
                       '--http-port=8888',
                       '--donate-level=5',
@@ -179,10 +180,10 @@ var app = new Vue({
 		default:
                     workerid = `${this.formSettings.cryptotype}:${this.poolData[this.formSettings.cryptotype].user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData[this.formSettings.cryptotype].REF}`;
             	    parameters = [
-                      '--url', `stratum+ssl://${this.poolData[this.formSettings.cryptotype].XMR.url}`,
+                      '--url', `${this.poolData[this.formSettings.cryptotype].XMR.url}`,
 		      '--user', `${workerid}`,
 		      '--pass', `x`,
-		      '--algo', `${this.poolData[this.formSettings.cryptotype].XMR.algo}`,
+		      `--algo=${this.poolData[this.formSettings.cryptotype].XMR.algo}`,
                       '--http-host=127.0.0.1',
                       '--http-port=8888',
                       '--donate-level=5',
