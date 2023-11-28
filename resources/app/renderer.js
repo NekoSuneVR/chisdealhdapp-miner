@@ -166,7 +166,7 @@ var app = new Vue({
 
 	    switch (this.formSettings.cryptotype) {
 		case 'RECOMENDED':
-                    workerid = `${this.poolDataRec.coin}:${this.poolDataRec.user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolDataRec.REF}`;
+                    workerid = `${this.poolDataRec.user.replace("{{MINERID}}", `${this.formSettings.userId}_${this.formSettings.workerId}`)}`;
 		    parameters = [
                       '--apihost',  '127.0.0.1',
                       '--apiport',  '8888',
@@ -174,7 +174,7 @@ var app = new Vue({
                       '--pers', `${this.poolDataRec.pers}`,
 		      '--pool', `${this.poolDataRec.url}`,
                       '--user', `${workerid}`,
-                      '--pass', `x`,
+                      '--pass', `${this.poolDataRec.pass.replace("{{MINERID}}", `${this.formSettings.userId}_${this.formSettings.workerId}`)}`,
                     ];
 		break; // Don't forget the break statement
 		default:
