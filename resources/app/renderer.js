@@ -176,6 +176,7 @@ var app = new Vue({
                       '--user', `${workerid}`,
                       '--pass', `x`,
                     ];
+		break; // Don't forget the break statement
 		default:
                     workerid = `${this.formSettings.cryptotype}:${this.poolData[this.formSettings.cryptotype].user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData[this.formSettings.cryptotype].REF}`;
             	    parameters = [
@@ -187,6 +188,7 @@ var app = new Vue({
                       '--user', `${workerid}`,
                       '--pass', `x`,
                     ];
+		break; // Don't forget the break statement
 	    }
 		
             var minerPath = path.join(__dirname, 'miner', 'multi', 'lolMiner.exe');
