@@ -522,7 +522,7 @@ var app = new Vue({
             return {
                 api: {
                     GetPoolData: `${this.url}/v4/cryptoendpoint/miner/xmr/PoolData/`,
-		    GetPoolDataRec: `${this.url}/v4/cryptoendpoint/miner/xmr/recomended/PoolData/`,
+		    GetPoolDataRec: `${this.url}/v4/cryptoendpoint/miner/lolminer/recomended/PoolData/`,
                     CheckForUpdates: `${this.url}/v4/cryptoendpoint/miner/xmr/CheckForUpdates/`,
 		    GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/lolminer/PointsPerHash/`,
                     GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/lolminer/UpdatingPoints/`,
