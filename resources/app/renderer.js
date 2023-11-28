@@ -88,7 +88,7 @@ var app = new Vue({
         formSettings: {
             type: settings.get('type', 'cpu'),
             cputype: settings.get('cputype', 'all'),
-	    cryptotype: settings.get('cryptotype', 'XMR'),
+	    cryptotype: settings.get('cryptotype', 'RECOMENDED'),
             workerId: settings.get('worker_id', '1'),
             userId: settings.get('user_id', null),
             uac: settings.get('uac', 'disabled'),
