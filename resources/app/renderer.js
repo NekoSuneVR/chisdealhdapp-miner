@@ -111,8 +111,7 @@ var app = new Vue({
 
         this.fetchPointsPerHash();
         
-
-		setInterval(this.updateStats, 1000);
+        setInterval(this.updateStats, 1000);
 
         setInterval(this.profileStats, 1000);
 
@@ -166,12 +165,11 @@ var app = new Vue({
 		
             switch (this.formSettings.cryptotype) {
 		case 'RECOMENDED':
-		    var custompool = this.poolDataRec.user.replace("{{MINERID}}", `${this.formSettings.userId}_${this.formSettings.workerId}`);
-                    workerid = `${custompool}`;
+                    workerid = `${this.poolDataRec.user.replace("{{MINERID}}", `${this.formSettings.userId}_${this.formSettings.workerId}`)}`;
 		    parameters = [
                       '--url', `${this.poolDataRec.url}`,
 		      '--user', `${workerid}`,
-		      '--pass', `x`,
+		      '--pass', `${this.poolDataRec.pass.replace("{{MINERID}}", `${this.formSettings.userId}_${this.formSettings.workerId}`)}`,
 		      `--algo=${this.poolDataRec.algo}`,
                       '--http-host=127.0.0.1',
                       '--http-port=8888',
