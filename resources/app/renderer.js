@@ -362,9 +362,6 @@ var app = new Vue({
                 .catch(function(error) {
                     console.log(error);
                 });
-        },
-        fetchPoolDataRec: function() {
-            var self = this;
             axios.get(this.urls.api.GetPoolDataRec)
                 .then(function(response) {
                     self.poolDataRec = response.data.result.data;
@@ -559,3 +556,4 @@ var app = new Vue({
     }
 
 });
+
