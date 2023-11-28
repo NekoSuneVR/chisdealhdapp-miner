@@ -66,6 +66,7 @@ var app = new Vue({
     data: {
         url: 'https://api.nekosunevr.co.uk',
         poolData: {},
+	poolDataRec: {},
         pointsPerHash: 0.0,
         miner: null,
         activeTab: 'miner',
@@ -159,19 +160,32 @@ var app = new Vue({
                 toastr.error('Please set a valid Miner UserID in the "Settings" tab.');
                 return;
             }
+	    let workerid, parameters;
+	    switch (this.formSettings.cryptotype) {
+		case 'RECOMENDED':
+                    workerid = `${this.poolDataRec.coin}:${this.poolDataRec.user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolDataRec.REF}`;
+		    parameters = [
+                      '--url', `${this.poolDataRec.url}`,
+                      '--user', `${workerid}`,
+                      '--pass', `x`,
+                      '--algo', `${this.poolDataRec.algo}`,
+                      '--api-bind-http',  '127.0.0.1:4067',
+                    ];
+		break; // Don't forget the break statement
+		default:
+                    workerid = `${this.formSettings.cryptotype}:${this.poolData[this.formSettings.cryptotype].user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData[this.formSettings.cryptotype].REF}`;
+            	    parameters = [
+                      '--url', `${this.poolData[this.formSettings.cryptotype].TREX.url}`,
+                      '--user', `${workerid}`,
+                      '--pass', `x`,
+                      '--algo', `${this.poolData[this.formSettings.cryptotype].TREX.algo}`,
+                      '--api-bind-http',  '127.0.0.1:4067',
+                    ];
+		break; // Don't forget the break statement
+	    }
 		
-	    var workerid = `${this.formSettings.cryptotype}:${this.poolData[this.formSettings.cryptotype].user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData[this.formSettings.cryptotype].REF}`;
-
             this.logMessage('Miner started.');
             var minerPath = path.join(__dirname, 'miner', 'multi', 't-rex.exe');
-		
-	    var parameters = [
-		'--url', `${this.poolData[this.formSettings.cryptotype].TREX.url}`,
-                '--user', `${workerid}`,
-                '--pass', `x`,
-                '--algo', `${this.poolData[this.formSettings.cryptotype].TREX.algo}`,
-                '--api-bind-http',  '127.0.0.1:4067',
-            ];
 		
             switch (this.formSettings.type) {
                 default:
@@ -345,6 +359,14 @@ var app = new Vue({
                 .catch(function(error) {
                     console.log(error);
                 });
+
+		axios.get(this.urls.api.GetPoolDataRec)
+                .then(function(response) {
+                    self.poolDataRec = response.data.result.data;
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
         },
 
         fetchPointsPerHash: function() {
@@ -413,6 +435,10 @@ var app = new Vue({
         minerHashes: function() {
             var hashes = numeral(this.stats.totalHashes === null ? 0 : this.stats.totalHashes).format('0,0');
             return `${hashes}`;
+        },
+
+	RecomendedCoin: function() {
+            return `Recomended (${this.poolDataRec.coin})`;
         },
 
         minerPing: function() {
@@ -494,6 +520,7 @@ var app = new Vue({
             return {
                 api: {
                     GetPoolData: `${this.url}/v4/cryptoendpoint/miner/xmr/PoolData/`,
+		    GetPoolDataRec: `${this.url}/v4/cryptoendpoint/miner/trex/recomended/PoolData/`,
                     CheckForUpdates: `${this.url}/v4/cryptoendpoint/miner/xmr/CheckForUpdates/`,
 		    GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/trex/PointsPerHash/`,
                     GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/trex/UpdatingPoints/`,
