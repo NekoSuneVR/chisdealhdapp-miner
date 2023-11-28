@@ -181,7 +181,7 @@ var app = new Vue({
                       '--url', `stratum+ssl://${this.poolData[this.formSettings.cryptotype].XMR.url}`,
 		      '--user', `${workerid}`,
 		      '--pass', `x`,
-		      '--algo=randomx',
+		      '--algo', `${this.poolData[this.formSettings.cryptotype].XMR.algo}`,
                       '--http-host=127.0.0.1',
                       '--http-port=8888',
                       '--donate-level=5',
