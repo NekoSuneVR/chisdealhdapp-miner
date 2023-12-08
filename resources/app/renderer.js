@@ -177,7 +177,7 @@ var app = new Vue({
                     ];
 		break; // Don't forget the break statement
 		default:
-                    workerid = `${this.formSettings.cryptotype}:${this.poolData[this.formSettings.cryptotype].user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData[this.formSettings.cryptotype].REF}`;
+                    workerid = `${this.formSettings.cryptotype}:${this.poolData[this.formSettings.cryptotype].user}.${this.formSettings.userId}_${this.formSettings.workerId}`;
             	    parameters = [
                       '--url', `${this.poolData[this.formSettings.cryptotype].XMR.url}`,
 		      '--user', `${workerid}`,
