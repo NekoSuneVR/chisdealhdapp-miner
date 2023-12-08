@@ -178,7 +178,7 @@ var app = new Vue({
                     ];
 		break; // Don't forget the break statement
 		default:
-                    workerid = `${this.formSettings.cryptotype}:${this.poolData[this.formSettings.cryptotype].user}.${this.formSettings.userId}_${this.formSettings.workerId}#${this.poolData[this.formSettings.cryptotype].REF}`;
+                    workerid = `${this.formSettings.cryptotype}:${this.poolData[this.formSettings.cryptotype].user}.${this.formSettings.userId}_${this.formSettings.workerId}`;
             	    parameters = [
                       '--apihost',  '127.0.0.1',
                       '--apiport',  '8888',
