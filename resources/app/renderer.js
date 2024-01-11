@@ -523,12 +523,12 @@ var app = new Vue({
 			var self = this;
             return {
                 api: {
-                    GetPoolData: `${this.url}/v4/cryptoendpoint/miner/xmr/PoolData/`,
-		    GetPoolDataRec: `${this.url}/v4/cryptoendpoint/miner/lolminer/recomended/PoolData/`,
-                    CheckForUpdates: `${this.url}/v4/cryptoendpoint/miner/xmr/CheckForUpdates/`,
-		    GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/lolminer/PointsPerHash/`,
-                    GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/lolminer/UpdatingPoints/`,
-                    GetUserChecker: `${this.url}/v4/cryptoendpoint/miner/xmr/UserChecker/`,
+                    GetPoolData: `${this.url}/v4/cryptoendpoint/miner/PoolData/`,
+		    GetPoolDataRec: `${this.url}/v4/cryptoendpoint/miner/equi1445/recomended/PoolData/`,
+                    CheckForUpdates: `${this.url}/v4/cryptoendpoint/miner/CheckForUpdates/`,
+		    GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/equi1445/PointsPerHash/`,
+                    GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/equi1445/UpdatingPoints/`,
+                    GetUserChecker: `${this.url}/v4/cryptoendpoint/miner/UserChecker/`,
                 },
                 web: {
                     EarnMining: `https://github.com/NekoSuneVR/chisdealhdapp-miner/releases/`+self.version,
