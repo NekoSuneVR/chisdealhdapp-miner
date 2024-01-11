@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "chisdealhdapp-lolminer-miner",
+  "name": "chisdealhdapp-zhash-miner",
   "version": "0.3.8",
   "description": "Basic miner interface for ChisdealHDAPP",
   "main": "main.js",
