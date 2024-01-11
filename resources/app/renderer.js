@@ -181,8 +181,8 @@ var app = new Vue({
             	    parameters = [
                       '--apihost',  '127.0.0.1',
                       '--apiport',  '8888',
-                      '--algo', `${this.poolData[this.formSettings.cryptotype].EQUI144_5.algo}`,
-		      '--pool', `${this.poolData[this.formSettings.cryptotype].EQUI144_5.url}`,
+                      '--algo', `${this.poolData[this.formSettings.cryptotype].ETHASH.algo}`,
+		      '--pool', `${this.poolData[this.formSettings.cryptotype].ETHASH.url}`,
                       '--user', `${workerid}`,
                       '--pass', `x`,
                     ];
