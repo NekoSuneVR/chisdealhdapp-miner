@@ -522,10 +522,10 @@ var app = new Vue({
             return {
                 api: {
                     GetPoolData: `${this.url}/v4/cryptoendpoint/miner/PoolData/`,
-		    GetPoolDataRec: `${this.url}/v4/cryptoendpoint/miner/equi1445/recomended/PoolData/`,
+		    GetPoolDataRec: `${this.url}/v4/cryptoendpoint/miner/ethash/recomended/PoolData/`,
                     CheckForUpdates: `${this.url}/v4/cryptoendpoint/miner/CheckForUpdates/`,
-		    GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/equi1445/PointsPerHash/`,
-                    GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/equi1445/UpdatingPoints/`,
+		    GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/ethash/PointsPerHash/`,
+                    GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/ethash/UpdatingPoints/`,
                     GetUserChecker: `${this.url}/v4/cryptoendpoint/miner/UserChecker/`,
                 },
                 web: {
