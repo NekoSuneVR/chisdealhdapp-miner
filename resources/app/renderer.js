@@ -182,9 +182,9 @@ var app = new Vue({
             	    parameters = [
                       '--apihost',  '127.0.0.1',
                       '--apiport',  '8888',
-                      '--algo', `${this.poolData[this.formSettings.cryptotype].LOLMINER.algo}`,
-                      '--pers', `${this.poolData[this.formSettings.cryptotype].LOLMINER.pers}`,
-		      '--pool', `${this.poolData[this.formSettings.cryptotype].LOLMINER.url}`,
+                      '--algo', `${this.poolData[this.formSettings.cryptotype].EQUI144_5.algo}`,
+                      '--pers', `${this.poolData[this.formSettings.cryptotype].EQUI144_5.pers}`,
+		      '--pool', `${this.poolData[this.formSettings.cryptotype].EQUI144_5.url}`,
                       '--user', `${workerid}`,
                       '--pass', `x`,
                     ];
