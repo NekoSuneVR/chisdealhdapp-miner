@@ -182,9 +182,9 @@ var app = new Vue({
             	    parameters = [
                       '--apihost',  '127.0.0.1',
                       '--apiport',  '8888',
-                      '--algo', `${this.poolData[this.formSettings.cryptotype].LOLMINER.algo}`,
-                      '--pers', `${this.poolData[this.formSettings.cryptotype].LOLMINER.pers}`,
-		      '--pool', `${this.poolData[this.formSettings.cryptotype].LOLMINER.url}`,
+                      '--algo', `${this.poolData[this.formSettings.cryptotype].LOLMINER.PYRIN.algo}`,
+                      '--pers', `${this.poolData[this.formSettings.cryptotype].LOLMINER.PYRIN.pers}`,
+		      '--pool', `${this.poolData[this.formSettings.cryptotype].LOLMINER.PYRIN.url}`,
                       '--user', `${workerid}`,
                       '--pass', `x`,
                     ];
@@ -524,10 +524,10 @@ var app = new Vue({
             return {
                 api: {
                     GetPoolData: `${this.url}/v4/cryptoendpoint/miner/xmr/PoolData/`,
-		    GetPoolDataRec: `${this.url}/v4/cryptoendpoint/miner/lolminer/recomended/PoolData/`,
+		    GetPoolDataRec: `${this.url}/v4/cryptoendpoint/miner/lolminerPYRIN/recomended/PoolData/`,
                     CheckForUpdates: `${this.url}/v4/cryptoendpoint/miner/xmr/CheckForUpdates/`,
-		    GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/lolminer/PointsPerHash/`,
-                    GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/lolminer/UpdatingPoints/`,
+		    GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/lolminerPYRIN/PointsPerHash/`,
+                    GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/lolminerPYRIN/UpdatingPoints/`,
                     GetUserChecker: `${this.url}/v4/cryptoendpoint/miner/xmr/UserChecker/`,
                 },
                 web: {
