@@ -431,7 +431,7 @@ var app = new Vue({
 
         minerHashrate: function() {
             var hashrate = this.stats.hashrate === null ? 0 : this.stats.hashrate;
-            return `${hashrate} SOL/s`;
+            return `${hashrate} MH/s`;
         },
 
         minerHashes: function() {
