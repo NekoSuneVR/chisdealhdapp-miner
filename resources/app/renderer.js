@@ -175,10 +175,10 @@ var app = new Vue({
 		default:
                     workerid = `${this.formSettings.cryptotype}:${this.poolData[this.formSettings.cryptotype].user}.${this.formSettings.userId}_${this.formSettings.workerId}`;
             	    parameters = [
-                      '--url', `${this.poolData[this.formSettings.cryptotype].TREX.url}`,
+                      '--url', `${this.poolData[this.formSettings.cryptotype].BLAKE.url}`,
                       '--user', `${workerid}`,
                       '--pass', `x`,
-                      '--algo', `${this.poolData[this.formSettings.cryptotype].TREX.algo}`,
+                      '--algo', `${this.poolData[this.formSettings.cryptotype].BLAKE.algo}`,
                       '--api-bind-http',  '127.0.0.1:4067',
                     ];
 		break; // Don't forget the break statement
@@ -519,12 +519,12 @@ var app = new Vue({
 			var self = this;
             return {
                 api: {
-                    GetPoolData: `${this.url}/v4/cryptoendpoint/miner/xmr/PoolData/`,
-		    GetPoolDataRec: `${this.url}/v4/cryptoendpoint/miner/trex/recomended/PoolData/`,
-                    CheckForUpdates: `${this.url}/v4/cryptoendpoint/miner/xmr/CheckForUpdates/`,
-		    GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/trex/PointsPerHash/`,
+                    GetPoolData: `${this.url}/v4/cryptoendpoint/miner/PoolData/`,
+		    GetPoolDataRec: `${this.url}/v4/cryptoendpoint/miner/blake/recomended/PoolData/`,
+                    CheckForUpdates: `${this.url}/v4/cryptoendpoint/miner/CheckForUpdates/`,
+		    GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/blake/PointsPerHash/`,
                     GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/trex/UpdatingPoints/`,
-                    GetUserChecker: `${this.url}/v4/cryptoendpoint/miner/xmr/UserChecker/`,
+                    GetUserChecker: `${this.url}/v4/cryptoendpoint/miner/UserChecker/`,
                 },
                 web: {
                     EarnMining: `https://github.com/NekoSuneVR/chisdealhdapp-miner/releases/`+self.version,
