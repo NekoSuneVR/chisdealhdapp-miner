@@ -263,7 +263,7 @@ var app = new Vue({
 
             axios.get('http://localhost:8888/')
                 .then(function(response) {
-                    self.stats.hashrate = response.data.Algorithms[0].Worker_Performance[0];
+                    self.stats.hashrate = response.data.Algorithms[0].Total_Performance;
                     self.stats.totalHashes = response.data.Algorithms[0].Total_Accepted;
                     self.stats.ping = 'NON PING REQUIRED';
                     self.stats.threads = response.data.Num_Workers;
@@ -431,7 +431,23 @@ var app = new Vue({
 
         minerHashrate: function() {
             var hashrate = this.stats.hashrate === null ? 0 : this.stats.hashrate;
-            return `${hashrate} MH/s`;
+            
+            if (hashrate < 1e3) {
+                return `${hashrate.toFixed(2)} H/s`;
+            } else if (hashrate < 1e6) {
+                return `${Math.round(hashrate * 100) / 100} KH/s`;
+            } else if (hashrate < 1e9) {
+                return `${Math.round((hashrate / 1e6) * 100) / 100} MH/s`;
+            } else if (hashrate < 1e12) {
+                return `${(hashrate / 1e9).toFixed(2)} GH/s`;
+            } else if (hashrate < 1e15) {
+                return `${(hashrate / 1e12).toFixed(2)} TH/s`;
+            } else if (hashrate < 1e18) {
+                return `${(hashrate / 1e15).toFixed(2)} PH/s`;
+            } else {
+                // Handle very large values if needed
+                return `${(hashrate / 1e18).toFixed(2)} EH/s`; // Exahashes per second
+            }
         },
 
         minerHashes: function() {
