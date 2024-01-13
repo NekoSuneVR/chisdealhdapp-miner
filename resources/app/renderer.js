@@ -175,10 +175,10 @@ var app = new Vue({
 		default:
                     workerid = `${this.formSettings.cryptotype}:${this.poolData[this.formSettings.cryptotype].user}.${this.formSettings.userId}_${this.formSettings.workerId}`;
             	    parameters = [
-                      '--url', `${this.poolData[this.formSettings.cryptotype].BLAKE.url}`,
+                      '--url', `${this.poolData[this.formSettings.cryptotype].ETCHASH.url}`,
                       '--user', `${workerid}`,
                       '--pass', `x`,
-                      '--algo', `${this.poolData[this.formSettings.cryptotype].BLAKE.algo}`,
+                      '--algo', `${this.poolData[this.formSettings.cryptotype].ETCHASH.algo}`,
                       '--api-bind-http',  '127.0.0.1:4067',
                     ];
 		break; // Don't forget the break statement
@@ -534,10 +534,10 @@ var app = new Vue({
             return {
                 api: {
                     GetPoolData: `${this.url}/v4/cryptoendpoint/miner/PoolData/`,
-		    GetPoolDataRec: `${this.url}/v4/cryptoendpoint/miner/blake/recomended/PoolData/`,
+		    GetPoolDataRec: `${this.url}/v4/cryptoendpoint/miner/etchash/recomended/PoolData/`,
                     CheckForUpdates: `${this.url}/v4/cryptoendpoint/miner/CheckForUpdates/`,
-		    GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/blake/PointsPerHash/`,
-                    GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/trex/UpdatingPoints/`,
+		    GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/etchash/PointsPerHash/`,
+                    GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/etchash/UpdatingPoints/`,
                     GetUserChecker: `${this.url}/v4/cryptoendpoint/miner/UserChecker/`,
                 },
                 web: {
