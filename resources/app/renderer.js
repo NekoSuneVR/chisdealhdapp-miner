@@ -513,7 +513,23 @@ var app = new Vue({
 
         minerHashrate: function() {
             var hashrate = this.stats.hashrate === null ? 0 : this.stats.hashrate;
-            return `${hashrate} H/s`;
+            
+    	    if (hashrate < 1e3) {
+        	return `${hashrate.toFixed(2)} H/s`;
+            } else if (hashrate < 1e6) {
+       		return `${Math.round(hashrate * 100) / 100} KH/s`;
+            } else if (hashrate < 1e9) {
+        	return `${Math.round((hashrate / 1e6) * 100) / 100} MH/s`;
+            } else if (hashrate < 1e12) {
+        	return `${Math.round((hashrate / 1e9) * 100) / 100} GH/s`;
+            } else if (hashrate < 1e15) {
+        	return `${Math.round((hashrate / 1e12) * 100) / 100} TH/s`;
+            } else if (hashrate < 1e18) {
+        	return `${Math.round((hashrate / 1e15) * 100) / 100} PH/s`;
+            } else {
+        	// Handle very large values if needed
+        	return `${Math.round((hashrate / 1e18) * 100) / 100} EH/s`; // Exahashes per second
+            }
         },
 
         minerHashes: function() {
