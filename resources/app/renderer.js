@@ -169,7 +169,7 @@ var app = new Vue({
                     workerid = `${this.poolDataRec.user.replace("{{MINERID}}", `${this.formSettings.userId}_${this.formSettings.workerId}`)}`;
 		    parameters = [
                       '--apihost',  '127.0.0.1',
-                      '--apiport',  '8888',
+                      '--apiport',  '8890',
                       '--algo', `${this.poolDataRec.algo}`,
 		      '--pool', `${this.poolDataRec.url}`,
                       '--user', `${workerid}`,
@@ -180,7 +180,7 @@ var app = new Vue({
                     workerid = `${this.formSettings.cryptotype}:${this.poolData[this.formSettings.cryptotype].user}.${this.formSettings.userId}_${this.formSettings.workerId}`;
             	    parameters = [
                       '--apihost',  '127.0.0.1',
-                      '--apiport',  '8888',
+                      '--apiport',  '8890',
                       '--algo', `${this.poolData[this.formSettings.cryptotype].PYRIN.algo}`,
 		      '--pool', `${this.poolData[this.formSettings.cryptotype].PYRIN.url}`,
                       '--user', `${workerid}`,
@@ -261,7 +261,7 @@ var app = new Vue({
 
             var self = this;
 
-            axios.get('http://localhost:8888/')
+            axios.get('http://localhost:8890/')
                 .then(function(response) {
                     self.stats.hashrate = response.data.Algorithms[0].Total_Performance;
                     self.stats.totalHashes = response.data.Algorithms[0].Total_Accepted;
