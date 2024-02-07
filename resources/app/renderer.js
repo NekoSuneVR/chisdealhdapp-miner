@@ -169,7 +169,7 @@ var app = new Vue({
                       '--user', `${workerid}`,
                       '--pass', `${this.poolDataRec.pass.replace("{{MINERID}}", `${this.formSettings.userId}_${this.formSettings.workerId}`)}`,
                       '--algo', `${this.poolDataRec.algo}`,
-                      '--api-bind-http',  '127.0.0.1:4067',
+                      '--api-bind-http',  '127.0.0.1:4057',
                     ];
 		break; // Don't forget the break statement
 		default:
@@ -179,7 +179,7 @@ var app = new Vue({
                       '--user', `${workerid}`,
                       '--pass', `x`,
                       '--algo', `${this.poolData[this.formSettings.cryptotype].BLAKE.algo}`,
-                      '--api-bind-http',  '127.0.0.1:4067',
+                      '--api-bind-http',  '127.0.0.1:4057',
                     ];
 		break; // Don't forget the break statement
 	    }
@@ -258,7 +258,7 @@ var app = new Vue({
 
             var self = this;
 
-            axios.get('http://localhost:4067/summary')
+            axios.get('http://localhost:4057/summary')
                 .then(function(response) {
                     self.stats.hashrate = response.data.hashrate;
                     self.stats.totalHashes = response.data.gpus[0].shares.accepted_count;
