@@ -130,7 +130,7 @@ var app = new Vue({
             settings.set('type', this.formSettings.type);
             settings.set('cputype', this.formSettings.cputype);
             settings.set('worker_id', this.formSettings.workerId);
-	    settings.set('cryptotype', this.formSettings.cryptotype);
+	        settings.set('cryptotype', this.formSettings.cryptotype);
             settings.set('user_id', this.formSettings.userId);
             settings.set('uac', this.formSettings.uac);
 
@@ -162,30 +162,32 @@ var app = new Vue({
             }
 	    let workerid, parameters;
 	    switch (this.formSettings.cryptotype) {
-		case 'RECOMENDED':
+		    case 'RECOMENDED':
                     workerid = `${this.poolDataRec.user.replace("{{MINERID}}", `${this.formSettings.userId}_${this.formSettings.workerId}`)}`;
-		    parameters = [
+		        parameters = [
                       '--url', `${this.poolDataRec.url}`,
                       '--user', `${workerid}`,
                       '--pass', `${this.poolDataRec.pass.replace("{{MINERID}}", `${this.formSettings.userId}_${this.formSettings.workerId}`)}`,
                       '--algo', `${this.poolDataRec.algo}`,
-                      '--api-bind-http',  '127.0.0.1:4057',
+                      '--api',  '127.0.0.1:6057',
+                      '-log'
                     ];
-		break; // Don't forget the break statement
-		default:
+		    break; // Don't forget the break statement
+		    default:
                     workerid = `${this.formSettings.cryptotype}:${this.poolData[this.formSettings.cryptotype].user}.${this.formSettings.userId}_${this.formSettings.workerId}`;
             	    parameters = [
-                      '--url', `${this.poolData[this.formSettings.cryptotype].BLAKE.url}`,
+                      '--url', `${this.poolData[this.formSettings.cryptotype].KAWPOW.url}`,
                       '--user', `${workerid}`,
                       '--pass', `x`,
-                      '--algo', `${this.poolData[this.formSettings.cryptotype].BLAKE.algo}`,
-                      '--api-bind-http',  '127.0.0.1:4057',
+                      '--algo', `${this.poolData[this.formSettings.cryptotype].KAWPOW.algo}`,
+                      '--api',  '127.0.0.1:6057',
+                      '-log'
                     ];
-		break; // Don't forget the break statement
+		    break; // Don't forget the break statement
 	    }
 		
             this.logMessage('Miner started.');
-            var minerPath = path.join(__dirname, 'miner', 'multi', 't-rex.exe');
+            var minerPath = path.join(__dirname, 'miner', 'multi', 'nbminer.exe');
 		
             switch (this.formSettings.type) {
                 default:
@@ -258,12 +260,12 @@ var app = new Vue({
 
             var self = this;
 
-            axios.get('http://localhost:4057/summary')
+            axios.get('http://localhost:6057/api/v1/status ')
                 .then(function(response) {
-                    self.stats.hashrate = response.data.hashrate;
-                    self.stats.totalHashes = response.data.gpus[0].shares.accepted_count;
-                    self.stats.ping = response.data.active_pool.ping;
-                    self.stats.threads = response.data.gpu_total;
+                    self.stats.hashrate = response.data.miner.total_hashrate;
+                    self.stats.totalHashes = response.data.stratum.accepted_shares;
+                    self.stats.ping = response.data.stratum.latency;
+                    self.stats.threads = response.data.miner.devices.length;
             }).catch(function(error) {
                 console.log(error);
             });
@@ -429,21 +431,8 @@ var app = new Vue({
 
         minerHashrate: function() {
             var hashrate = this.stats.hashrate === null ? 0 : this.stats.hashrate;
-
-            if (hashrate < 1e6) {
-                return `${hashrate.toFixed(2)} H/s`;
-            } else if (hashrate < 1e9) {
-                return `${(hashrate / 1e6).toFixed(2)} MH/s`;
-            } else if (hashrate < 1e12) {
-                return `${(hashrate / 1e9).toFixed(2)} GH/s`;
-            } else if (hashrate < 1e15) {
-                return `${(hashrate / 1e12).toFixed(2)} TH/s`;
-            } else if (hashrate < 1e18) {
-                return `${(hashrate / 1e15).toFixed(2)} PH/s`;
-            } else {
-                // Handle very large values if needed
-                return `${(hashrate / 1e18).toFixed(2)} EH/s`; // Exahashes per second
-            }
+            // Handle very large values if needed
+            return `${hashrate}`; // Exahashes per second
         },
 
         minerHashes: function() {
@@ -451,7 +440,7 @@ var app = new Vue({
             return `${hashes}`;
         },
 
-	RecomendedCoin: function() {
+	    RecomendedCoin: function() {
             return `Recomended (${this.poolDataRec.coin})`;
         },
 
@@ -534,10 +523,10 @@ var app = new Vue({
             return {
                 api: {
                     GetPoolData: `${this.url}/v4/cryptoendpoint/miner/PoolData/`,
-		    GetPoolDataRec: `${this.url}/v4/cryptoendpoint/miner/blake/recomended/PoolData/`,
+		            GetPoolDataRec: `${this.url}/v4/cryptoendpoint/miner/kawpow/recomended/PoolData/`,
                     CheckForUpdates: `${this.url}/v4/cryptoendpoint/miner/CheckForUpdates/`,
-		    GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/blake/PointsPerHash/`,
-                    GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/blake/UpdatingPoints/`,
+		            GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/kawpow/PointsPerHash/`,
+                    GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/kawpow/UpdatingPoints/`,
                     GetUserChecker: `${this.url}/v4/cryptoendpoint/miner/UserChecker/`,
                 },
                 web: {
