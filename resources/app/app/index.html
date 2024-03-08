@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>AlloyXuast Kawpow Miner (Donation Support)</title>
+    <title>AlloyXuast ETHASH Miner (Donation Support)</title>
 
     <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -159,7 +159,7 @@
 		<div class="form-group">
                     <label>Which Crypto Want Support?</label>
                     <select v-model="formSettings.cryptotype" class="custom-select">
-			    <option value="RECOMENDED">{{ RecomendedCoin }}</option>
+                            <option value="RECOMENDED">{{ RecomendedCoin }}</option>
                             <option value="XMR">Monero (XMR)</option>
                             <option value="DOGE">DogeCoin (DOGE)</option>
                             <option value="SHIB">SHIBA INU (SHIB)</option>
@@ -172,7 +172,8 @@
                             <option value="BNB">Binance Coin (BNB)</option>
                             <option value="ETH">Ethereum (ETH)</option>
                             <option value="MATIC">Polygon (MATIC)</option>
-                        </select>
+                            <option value="FLUX"></option>FLUX (FLUX)</option>
+                    </select>
                     <small class="form-text text-muted">Only Select what Type want Support?</small>
                 </div>
                 <div class="form-group">
@@ -235,7 +236,9 @@
         require('../renderer.js')
     </script>
 
+
     <script>
+
         const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
         const currentTheme = localStorage.getItem('theme');
 
@@ -258,6 +261,7 @@
         }
 
         toggleSwitch.addEventListener('change', switchTheme, false);
+
     </script>
 
 </body>
