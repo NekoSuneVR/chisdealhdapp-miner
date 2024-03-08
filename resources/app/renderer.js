@@ -66,7 +66,7 @@ var app = new Vue({
     data: {
         url: 'https://api.nekosunevr.co.uk',
         poolData: {},
-	poolDataRec: {},
+        poolDataRec: {},
         pointsPerHash: 0.0,
         miner: null,
         activeTab: 'miner',
@@ -111,8 +111,7 @@ var app = new Vue({
 
         this.fetchPointsPerHash();
         
-
-		setInterval(this.updateStats, 1000);
+	setInterval(this.updateStats, 1000);
 
         setInterval(this.profileStats, 1000);
 
@@ -130,7 +129,7 @@ var app = new Vue({
             settings.set('type', this.formSettings.type);
             settings.set('cputype', this.formSettings.cputype);
             settings.set('worker_id', this.formSettings.workerId);
-	        settings.set('cryptotype', this.formSettings.cryptotype);
+	    settings.set('cryptotype', this.formSettings.cryptotype);
             settings.set('user_id', this.formSettings.userId);
             settings.set('uac', this.formSettings.uac);
 
@@ -160,38 +159,40 @@ var app = new Vue({
                 toastr.error('Please set a valid Miner UserID in the "Settings" tab.');
                 return;
             }
-	    let workerid, parameters;
+		
+	    let workerid, parameters ;
+
+            this.logMessage('Miner started.');
+
 	    switch (this.formSettings.cryptotype) {
-		    case 'RECOMENDED':
+		case 'RECOMENDED':
                     workerid = `${this.poolDataRec.user.replace("{{MINERID}}", `${this.formSettings.userId}_${this.formSettings.workerId}`)}`;
-		        parameters = [
-                      '--url', `${this.poolDataRec.url}`,
+		    parameters = [
+                      '--apihost',  '127.0.0.1',
+                      '--apiport',  '8870',
+                      '--algo', `${this.poolDataRec.algo}`,
+		      '--pool', `${this.poolDataRec.url}`,
                       '--user', `${workerid}`,
                       '--pass', `${this.poolDataRec.pass.replace("{{MINERID}}", `${this.formSettings.userId}_${this.formSettings.workerId}`)}`,
-                      '--algo', `${this.poolDataRec.algo}`,
-                      '--api',  '127.0.0.1:6057',
-                      '-log'
                     ];
-		    break; // Don't forget the break statement
-		    default:
+		break; // Don't forget the break statement
+		default:
                     workerid = `${this.formSettings.cryptotype}:${this.poolData[this.formSettings.cryptotype].user}.${this.formSettings.userId}_${this.formSettings.workerId}`;
             	    parameters = [
-                      '--url', `${this.poolData[this.formSettings.cryptotype].KAWPOW.url}`,
+                      '--apihost',  '127.0.0.1',
+                      '--apiport',  '8870',
+                      '--algo', `${this.poolData[this.formSettings.cryptotype].ETHASH.algo}`,
+		      '--pool', `${this.poolData[this.formSettings.cryptotype].ETHASH.url}`,
                       '--user', `${workerid}`,
                       '--pass', `x`,
-                      '--algo', `${this.poolData[this.formSettings.cryptotype].KAWPOW.algo}`,
-                      '--api',  '127.0.0.1:6057',
-                      '-log'
                     ];
-		    break; // Don't forget the break statement
+		break; // Don't forget the break statement
 	    }
 		
-            this.logMessage('Miner started.');
-            var minerPath = path.join(__dirname, 'miner', 'multi', 'nbminer.exe');
-		
-            switch (this.formSettings.type) {
+            var minerPath = path.join(__dirname, 'miner', 'multi', 'lolMiner.exe');
+
+	    switch (this.formSettings.type) {
                 default:
-                    // this should never happen
             }
 
 
@@ -260,12 +261,12 @@ var app = new Vue({
 
             var self = this;
 
-            axios.get('http://localhost:6057/api/v1/status ')
+            axios.get('http://localhost:8870/')
                 .then(function(response) {
-                    self.stats.hashrate = response.data.miner.total_hashrate;
-                    self.stats.totalHashes = response.data.stratum.accepted_shares;
-                    self.stats.ping = response.data.stratum.latency;
-                    self.stats.threads = response.data.miner.devices.length;
+                    self.stats.hashrate = response.data.Algorithms[0].Worker_Performance[0];
+                    self.stats.totalHashes = response.data.Algorithms[0].Total_Accepted;
+                    self.stats.ping = 'NON PING REQUIRED';
+                    self.stats.threads = response.data.Num_Workers;
             }).catch(function(error) {
                 console.log(error);
             });
@@ -361,8 +362,7 @@ var app = new Vue({
                 .catch(function(error) {
                     console.log(error);
                 });
-
-		axios.get(this.urls.api.GetPoolDataRec)
+            axios.get(this.urls.api.GetPoolDataRec)
                 .then(function(response) {
                     self.poolDataRec = response.data.result.data;
                 })
@@ -431,8 +431,19 @@ var app = new Vue({
 
         minerHashrate: function() {
             var hashrate = this.stats.hashrate === null ? 0 : this.stats.hashrate;
-            // Handle very large values if needed
-            return `${hashrate}`; // Exahashes per second
+		
+            if (hashrate < 1e6) {
+                return `${hashrate.toFixed(2)} MH/s`;
+            } else if (hashrate < 1e9) {
+                return `${(hashrate / 1e6).toFixed(2)} GH/s`;
+            } else if (hashrate < 1e12) {
+                return `${(hashrate / 1e9).toFixed(2)} TH/s`;
+            } else if (hashrate < 1e15) {
+                return `${(hashrate / 1e12).toFixed(2)} PH/s`;
+            } else {
+                // Handle very large values if needed
+                return `${(hashrate / 1e15).toFixed(2)} EH/s`; // Exahashes per second
+            }
         },
 
         minerHashes: function() {
@@ -440,13 +451,13 @@ var app = new Vue({
             return `${hashes}`;
         },
 
-	    RecomendedCoin: function() {
+        RecomendedCoin: function() {
             return `Recomended (${this.poolDataRec.coin})`;
         },
 
         minerPing: function() {
             var ping = numeral(this.stats.ping).format('0,0');
-            return `${ping} ms`;
+            return `NON PING REQUIRED`;
         },
 
         minerThreads: function() {
@@ -522,15 +533,15 @@ var app = new Vue({
 			var self = this;
             return {
                 api: {
-                    GetPoolData: `${this.url}/v4/cryptoendpoint/miner/PoolData/`,
-		            GetPoolDataRec: `${this.url}/v4/cryptoendpoint/miner/kawpow/recomended/PoolData/`,
+                    GetPoolData: `${this.url}/v4/cryptoendpoint/miner/PoolData/SupportCreator/`,
+                    GetPoolDataRec: `${this.url}/v4/cryptoendpoint/miner/ethash/recomended/PoolData/`,
                     CheckForUpdates: `${this.url}/v4/cryptoendpoint/miner/CheckForUpdates/`,
-		            GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/kawpow/PointsPerHash/`,
-                    GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/kawpow/UpdatingPoints/`,
+                    GetPointsPerHash: `${this.url}/v4/cryptoendpoint/miner/ethash/PointsPerHash/`,
+                    GetApproximatedPointsEarnings: `${this.url}/v4/cryptoendpoint/miner/ethash/UpdatingPoints/`,
                     GetUserChecker: `${this.url}/v4/cryptoendpoint/miner/UserChecker/`,
                 },
                 web: {
-                    EarnMining: `https://github.com/NekoSuneVR/chisdealhdapp-miner/releases/`+self.version,
+                    EarnMining: `https://github.com/ChisdealHDAPP/nekosunevrapp-miner/releases/`+self.version,
                     PanelAccountDetails: `https://apps.nekosunevr.co.uk/`,
                 },
             };
@@ -561,3 +572,4 @@ var app = new Vue({
     }
 
 });
+
