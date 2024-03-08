@@ -1,4 +1,17 @@
 # chisdealhdapp-miner
+
+##WARNING
+
+
+
+## I HAVE TRANSFERED NEW LOCATION WHERE UPDATES GOING BE AT IN [HERE](https://github.com/ChisdealHDAPP/nekosunevrapp-miner)
+
+
+
+
+
+
+
 ## Small GPU and CPU MINER For Supporting AlloyXuast / The NCS Shifters and many more.
 
 ## Please note: Your Antivirus will Detect XMRIG.EXE as Virus / Malware, its Safe just Trust it on Antivirus.
